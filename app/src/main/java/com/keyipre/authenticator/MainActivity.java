@@ -55,11 +55,13 @@ public class MainActivity extends AppCompatActivity {
         webSettings.setDomStorageEnabled(true);
         CookieManager.getInstance().setAcceptCookie(true);
 
-        DeviceFingerprintGenerator generator = new DeviceFingerprintGenerator(this);
-        String fingerprint = generator.generateFingerprint();
+        CookieManager cookieManager = CookieManager.getInstance();
+        String cookieString = "action=app; path=/ ";
+        cookieManager.setCookie("https://www.keyipre.com.tr", cookieString);
+
 
         loadPreviousUrl();
-        String mainUrl = "https://panel.picoshot.net/server/kontrol.php?action=app&fp=" + fingerprint + "&name=" + Build.MANUFACTURER;
+        String mainUrl = "https://www.keyipre.com.tr/statics/pages/app_login";
         findViewById(R.id.homeButton).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -99,10 +101,7 @@ public class MainActivity extends AppCompatActivity {
         if (lastUrl != null) {
             myWebView.loadUrl(lastUrl);
         } else {
-            // Load default URL if no previous one
-            DeviceFingerprintGenerator generator = new DeviceFingerprintGenerator(this);
-            String fingerprint = generator.generateFingerprint();
-            String myWebsiteURL = "https://panel.picoshot.net/server/kontrol.php?action=app&fp=" + fingerprint + "&name=" + Build.MANUFACTURER;
+            String myWebsiteURL = "https://www.keyipre.com.tr/statics/pages/app_login";
             myWebView.loadUrl(myWebsiteURL);
         }
     }
@@ -120,60 +119,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public static class DeviceFingerprintGenerator {
 
-        private final Context context;
-
-        public DeviceFingerprintGenerator(Context context) {
-            this.context = context;
-        }
-
-        public String generateFingerprint() {
-            String fingerprintData = collectDeviceData();
-            return getHash(fingerprintData);
-        }
-
-        private String collectDeviceData() {
-            StringBuilder builder = new StringBuilder();
-
-            builder.append("Android:").append(Build.VERSION.RELEASE);
-
-            WindowManager windowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
-            Display display = windowManager.getDefaultDisplay();
-            builder.append(display.getDisplayId());
-
-            builder.append(", Model:").append(Build.MODEL);
-            builder.append(", MANUFACTURER:").append(Build.MANUFACTURER);
-            builder.append(", Device:").append(Build.DEVICE);
-            builder.append(", BOARD:").append(Build.BOARD);
-            builder.append(", HARDWARE:").append(Build.HARDWARE);
-            builder.append(", BOOTLOADER:").append(Build.BOOTLOADER);
-            builder.append(", DISPLAY:").append(Build.DISPLAY);
-            builder.append(", FINGERPRINT:").append(Build.FINGERPRINT);
-            builder.append(", ID:").append(Build.ID);
-            builder.append(", HOST:").append(Build.HOST);
-
-            return builder.toString();
-        }
-
-        private String getHash(String input) {
-            try {
-                MessageDigest md = MessageDigest.getInstance("MD5");
-                byte[] hashBytes = md.digest(input.getBytes());
-                return bytesToHex(hashBytes);
-            } catch (NoSuchAlgorithmException e) {
-                return null;
-            }
-        }
-
-        private String bytesToHex(byte[] bytes) {
-            StringBuilder sb = new StringBuilder();
-            for (byte b : bytes) {
-                sb.append(String.format("%02x", b));
-            }
-            return sb.toString();
-        }
-    }
 
     private class MyWebViewClient extends WebViewClient {
         @Override
