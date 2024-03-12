@@ -34,7 +34,7 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 
 public class MainActivity extends AppCompatActivity {
-    private String currentVersion = "1.1.0";
+    private String currentVersion = "1.2.0";
     private static final String UPDATE_CHECK_URL = "https://www.keyipre.com.tr/statics/apis/app_update_api.php";
     private WebView myWebView;
 
@@ -74,14 +74,14 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        restoreWebViewState();
+       restoreWebViewState();
     }
 
     private void loadPreviousUrl() {
         SharedPreferences preferences = getPreferences(MODE_PRIVATE);
         String lastUrl = preferences.getString("lastUrl", null);
 
-        if (lastUrl != null) {
+        if (false) {
             myWebView.loadUrl(lastUrl);
         } else {
             String myWebsiteURL = "https://www.keyipre.com.tr/statics/pages/app_login";
