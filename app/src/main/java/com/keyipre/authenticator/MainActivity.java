@@ -35,7 +35,7 @@ import okhttp3.Response;
 
 public class MainActivity extends AppCompatActivity {
     private String currentVersion = "1.1.0";
-    private static final String UPDATE_CHECK_URL = "https://www.picoshot.net/update.php";
+    private static final String UPDATE_CHECK_URL = "https://www.keyipre.com.tr/statics/apis/app_update_api.php";
     private WebView myWebView;
 
     @SuppressLint("SetJavaScriptEnabled")
@@ -61,23 +61,6 @@ public class MainActivity extends AppCompatActivity {
 
 
         loadPreviousUrl();
-        String mainUrl = "https://www.keyipre.com.tr/statics/pages/app_login";
-        findViewById(R.id.homeButton).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                myWebView.loadUrl(mainUrl);
-                Toast.makeText(MainActivity.this, "Go Home", Toast.LENGTH_SHORT).show();
-            }
-        });
-
-
-        myWebView.setWebViewClient(new WebViewClient() {
-            @Override
-            public boolean shouldOverrideUrlLoading(WebView view, String url) {
-                Toast.makeText(MainActivity.this, url, Toast.LENGTH_SHORT).show();
-                return false;
-            }
-        });
 
     }
 
