@@ -148,23 +148,23 @@ public class MainActivity extends AppCompatActivity {
                     boolean forceUpdate = jsonResponse.getBoolean("force");
 
                     if (updateAvailable) {
-                        Toast.makeText(MainActivity.this, "Update Available! New Version:" + lastVersion, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MainActivity.this, "Güncelleme Mevcut! Yeni Version:" + lastVersion, Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(updateUrl));
                         startActivity(intent);
                         if (forceUpdate) {
-                            Toast.makeText(MainActivity.this, "Please Update app", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(MainActivity.this, "Lütfen Uygulamayı Güncelleyiniz!", Toast.LENGTH_SHORT).show();
                             finish();
                         }
                     } else
-                        Toast.makeText(MainActivity.this, "App Is Updated! Version:" + lastVersion, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MainActivity.this, "Uygulama Güncel! Version:" + lastVersion, Toast.LENGTH_SHORT).show();
 
                 } else {
-                    Toast.makeText(MainActivity.this, "Failed to Check Update", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this, "Güncellemeleri Kontrol ederken bir hata oluştu!", Toast.LENGTH_SHORT).show();
                     finish();
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
-                Toast.makeText(MainActivity.this, "Failed to Check Update", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, "Güncellemeleri Kontrol ederken bir hata oluştu!!", Toast.LENGTH_SHORT).show();
                 finish();
             }
         }
